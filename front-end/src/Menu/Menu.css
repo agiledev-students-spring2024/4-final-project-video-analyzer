@@ -1,0 +1,45 @@
+.menu-page {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px; 
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+  } */
+  
+  .close-menu {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    float: right;
+  }
+  
+  .menu-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 30px; /* Adjust margin as needed */
+  }
+  
+  .menu-list li {
+    padding: 10px 0;
+  }
+  
+  .menu-list li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+  

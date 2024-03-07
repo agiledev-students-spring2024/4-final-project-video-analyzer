@@ -1,0 +1,52 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Adjust the color to match your design */
+  }
+  
+  .register-content {
+    text-align: center;
+    max-width: 320px; /* Adjust width as needed */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .register-content h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .register-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00BFFF; /* Example color, adjust as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    margin-top: 10px;
+  }
+  
+  .alternative-option {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .login-link {
+    cursor: pointer;
+    color: #0077cc; /* Example color, adjust as needed */
+    margin-left: 5px;
+  }
+  

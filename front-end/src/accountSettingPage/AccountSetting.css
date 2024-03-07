@@ -1,0 +1,36 @@
+.account-setting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Adjust the color to match your design */
+}
+
+.account-setting-content {
+  text-align: center;
+  max-width: 320px; /* Adjust width as needed */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.account-setting-content h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.account-email {
+  font-size: 16px;
+  color: #333; /* Adjust the color to match your design */
+  margin-bottom: 20px;
+}
+
+.change-password-button {
+  padding: 10px 20px;
+  background-color: #00BFFF; /* Example color, adjust as needed */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+}
