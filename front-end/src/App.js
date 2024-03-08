@@ -1,12 +1,12 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SplashPage from './SplashPage';
-import LoginPage from './LoginPage';
-import RegisterPage from './RegisterPage';
-import AccountSetting from './AccountSetting';
-import Menu from './Menu';
-import Home from './Home'
+import SplashPage from './SplashPage/SplashPage';
+import LoginPage from './LoginPage/LoginPage';
+import RegisterPage from './RegisterPage/RegisterPage';
+import AccountSetting from './accountSettingPage/AccountSetting';
+import Menu from './Menu/Menu';
+import Home from './HomePage/HomePage'
 
 
 function App() {

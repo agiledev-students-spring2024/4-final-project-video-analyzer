@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header'; // Import the reusable Header component
-import './Home.css';
+import Header from '../Header/Header'; // Import the reusable Header component
+import './HomePage.css';
 
 const Home = () => {
   let navigate = useNavigate();

@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header'; // Make sure the Header component is in the same directory
-import './RegisterPage.css'; // Ensure this path is correct
+import Header from '../Header/Header'; // Import the reusable Header component
+import './LoginPage.css'; // Make sure this path is correct
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
-    // Implement your register logic here
-
-    // After registration, navigate to the login page or home page
-    navigate('/login');
+    // add the login funciton here
+    navigate('/home');
   };
 
   return (
-    <div className="register-container">
+    <div className="login-container">
       <Header />
-      <main className="register-content">
-        <h1>Register</h1>
-        <form onSubmit={handleRegister}>
+      <main className="login-content">
+        <h1>login</h1>
+        <form onSubmit={handleLogin}>
           <input
             type="text"
-            className="register-input"
+            className="login-input"
             placeholder="enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -32,21 +30,21 @@ const RegisterPage = () => {
           />
           <input
             type="password"
-            className="register-input"
+            className="login-input"
             placeholder="enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="register-button">Register</button>
+          <button type="submit" className="login-button">Log In</button>
         </form>
         <div className="alternative-option">
           or,
-          <span className="login-link" onClick={() => navigate('/login')}> log in</span>
+          <span className="register-link" onClick={() => navigate('/register')}> register as new</span>
         </div>
       </main>
     </div>
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

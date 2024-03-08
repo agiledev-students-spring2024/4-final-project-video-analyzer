@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header'; // Import the reusable Header component
+import Header from '../Header/Header'; // Import the reusable Header component
 import { useNavigate } from 'react-router-dom';
 import './SplashPage.css'; // Ensure this path is correct
 
