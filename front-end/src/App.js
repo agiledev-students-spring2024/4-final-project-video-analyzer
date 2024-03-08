@@ -5,7 +5,8 @@ import SplashPage from './SplashPage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import AccountSetting from './AccountSetting';
-import MenuPage from './MenuPage';
+import Menu from './Menu';
+import Home from './Home'
 
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/account-setting" element={<AccountSetting />} />
-        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/home" element={<Home />} />
        
       </Routes>
     </Router>

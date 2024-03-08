@@ -1,0 +1,46 @@
+/* Home.css */
+
+.main-content {
+    text-align: center; /* Aligns content to the center */
+  }
+  
+  .button-group {
+    margin-bottom: 15px; /* Spacing between button group and the button below */
+  }
+  
+  .button {
+    background-color: #007bff; /* Example button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px; /* Spacing between buttons */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* This is used to hide the 'or' text on non-narrow screens */
+  .or {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Below a certain screen width, the 'or' text will show, and buttons will stack */
+  @media (max-width: 600px) {
+    .button-group {
+      display: block;
+    }
+  
+    .button {
+      display: block;
+      margin: 10px auto; /* Center buttons with auto left and right margins */
+    }
+  
+    .or {
+      display: block;
+      margin: 10px auto;
+    }
+  }
+  
