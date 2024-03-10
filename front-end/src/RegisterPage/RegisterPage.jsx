@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header'; // Make sure the Header component is in the same directory
+import Header from '../Header/Header'; // Make sure the Header component is in the same directory
 import './RegisterPage.css'; // Ensure this path is correct
 
 const RegisterPage = () => {
