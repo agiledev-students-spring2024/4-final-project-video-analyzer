@@ -11,7 +11,7 @@ const MenuPage = () => {
       <ul className="menu-list">
         <li onClick={() => navigate('/')}>Home</li>
         <li onClick={() => navigate('/account-setting')}>Account Setting</li>
-        <li onClick={() => navigate('/about-us')}>About Us</li>
+        <li onClick={() => navigate('/about')}>About Us</li>
       </ul>
     </div>
   );

@@ -7,6 +7,8 @@ import RegisterPage from './RegisterPage/RegisterPage';
 import AccountSetting from './accountSettingPage/AccountSetting';
 import Menu from './Menu/Menu';
 import Home from './HomePage/HomePage'
+import AboutUsPage from './AboutUsPage/AboutUsPage';
+import HistoryPage from './HistoryPage/HistoryPage';
 
 
 function App() {
@@ -19,7 +21,9 @@ function App() {
         <Route path="/account-setting" element={<AccountSetting />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/home" element={<Home />} />
-       
+        <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/history" element={<HistoryPage />} />
+
       </Routes>
     </Router>
   );

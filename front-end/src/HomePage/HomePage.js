@@ -19,7 +19,7 @@ const Home = () => {
           <span className="or">or</span>
           <button className="button" onClick={() => handleNavigation('/upload-file')}>Upload File</button>
         </div>
-        <button className="button" onClick={() => handleNavigation('/show-history')}>Show History</button>
+        <button className="button" onClick={() => handleNavigation('/history')}>Show History</button>
       </div>
     </div>
   );
