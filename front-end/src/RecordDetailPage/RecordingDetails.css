@@ -1,0 +1,103 @@
+/* RecordingDetails.css */
+
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Header - Assuming your <Header /> component has its own styling */
+  
+  /* Main Content Area */
+  .history-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .history-content h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  .history-list {
+    list-style: none;
+  }
+  
+  .history-list li {
+    padding: 0.75rem 1rem;
+    background: #e9ecef;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .history-list li:hover {
+    background-color: #dde1e3;
+  }
+
+  .content h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+
+  .result {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  /* Link/Button Back */
+  .back-button {
+    display: block;
+    width: max-content;
+    padding: 10px 20px;
+    margin: 2rem auto;
+    background: #007bff;
+    color: #fff;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+  }  
+  /* RecordingDetails.css */
+
+/* General resets for better control
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+} */
+
+/* URL styling */
+.details .url {
+  color: #007bff;
+  word-break: break-all;
+  margin-bottom: 1rem;
+}
+
+/* Results area */
+.details .result {
+  text-align: left;
+  background-color: #f2f2f2;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}

@@ -9,6 +9,7 @@ import Menu from './Menu/Menu';
 import Home from './HomePage/HomePage'
 import AboutUsPage from './AboutUsPage/AboutUsPage';
 import HistoryPage from './HistoryPage/HistoryPage';
+import RecordingDetails from './RecordDetailPage/RecordingDetails';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/history" element={<HistoryPage />} />
+        <Route path="/history/:historyId" element={<RecordingDetails />} />
 
       </Routes>
     </Router>
