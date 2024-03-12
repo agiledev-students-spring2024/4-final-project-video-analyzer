@@ -10,6 +10,7 @@ import Home from './HomePage/HomePage'
 import AboutUsPage from './AboutUsPage/AboutUsPage';
 import HistoryPage from './HistoryPage/HistoryPage';
 import RecordingDetails from './RecordDetailPage/RecordingDetails';
+import RecordPage from './RecordPage/RecordPage';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/history/:historyId" element={<RecordingDetails />} />
+        <Route path="/start-recording" element={<RecordPage />} />
+
 
       </Routes>
     </Router>
