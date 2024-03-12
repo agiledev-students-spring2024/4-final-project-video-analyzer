@@ -1,0 +1,53 @@
+.upload-page {
+    font-family: 'Arial', sans-serif;
+}
+
+.upload-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.upload-container h1 {
+    margin: 20px 0;
+    color: #333;
+}
+
+.upload-container p {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.upload-input {
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.upload-button {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block; /* Allows the button to sit next to other inline or inline-block elements */
+}
+
+/* You can add hover effects to the buttons */
+.upload-button:hover {
+    background-color: #009b9b;
+}
+
+/* Hide the actual file input visually but remain accessible */
+.upload-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
