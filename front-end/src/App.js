@@ -11,6 +11,8 @@ import AboutUsPage from './AboutUsPage/AboutUsPage';
 import HistoryPage from './HistoryPage/HistoryPage';
 import RecordingDetails from './RecordDetailPage/RecordingDetails';
 import RecordPage from './RecordPage/RecordPage';
+import UploadPage from './UploadPage/UploadPage';
+
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/history/:historyId" element={<RecordingDetails />} />
         <Route path="/start-recording" element={<RecordPage />} />
+        <Route path="/upload-file" element={<UploadPage />} />
 
 
       </Routes>
