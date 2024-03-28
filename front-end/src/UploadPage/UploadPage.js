@@ -5,7 +5,24 @@ import './UploadPage.css';
 const UploadPage = () => {
     const handleUpload = (event) => {
         // Implement what should happen when the file is uploaded
-        console.log('File uploaded:', event.target.files[0]);
+        const file = event.target.files[0];
+        console.log('File uploaded:', file);
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/transcribe', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Transcription success:', data);
+        })
+        .catch(error => {
+            console.error('Transcription error:', error);
+        });        
     };
 
     return (
@@ -15,9 +32,8 @@ const UploadPage = () => {
                 <h1>Upload</h1>
                 <p>Some dummy text Some dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy text</p>
                 <input type="file" id="fileInput" className="upload-input" hidden onChange={handleUpload} />
-                <label htmlFor="fileInput" className="upload-button">Choose File</label>
                 <button className="upload-button" onClick={() => document.getElementById('fileInput').click()}>
-                    Upload
+                    Choose File
                 </button>
             </div>
         </div>
