@@ -1,10 +1,11 @@
-const express = require("express");
-const app = express();
+const express = require('express');
+const multer = require('multer');
 const fs = require('fs');
 const axios = require('axios');
+const app = express();
 
 const API_TOKEN = 'd8019923168b47c899e0a274d7d856e5';
-const upload = multer({ dest: 'uploads/' });  // Files will be stored in the 'uploads' directory
+const upload = multer({ dest: 'uploads/' });  
 
 // Function to upload a file to the AssemblyAI API
 function upload_file(api_token, filePath) {
