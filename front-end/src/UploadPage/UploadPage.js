@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Header/Header'; // Adjust the import path as necessary
 import './UploadPage.css';
 
 const UploadPage = () => {
+    const [transcriptionResult, setTranscriptionResult] = useState('');
+
     const handleUpload = (event) => {
-        // Implement what should happen when the file is uploaded
         const file = event.target.files[0];
         console.log('File uploaded:', file);
         if (!file) return;
@@ -19,9 +20,12 @@ const UploadPage = () => {
         .then(response => response.json())
         .then(data => {
             console.log('Transcription success:', data);
+            // Update the transcription result state
+            setTranscriptionResult(data.text || 'No transcription text received.');
         })
         .catch(error => {
             console.error('Transcription error:', error);
+            setTranscriptionResult('Error during transcription.');
         });        
     };
 
@@ -35,6 +39,11 @@ const UploadPage = () => {
                 <button className="upload-button" onClick={() => document.getElementById('fileInput').click()}>
                     Choose File
                 </button>
+                {/* Display the transcription result */}
+                <div className="transcription-result">
+                    <h2>Transcription Result:</h2>
+                    <pre>{transcriptionResult}</pre>
+                </div>
             </div>
         </div>
     );
