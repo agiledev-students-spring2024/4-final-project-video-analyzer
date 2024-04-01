@@ -123,6 +123,30 @@ app.post('/register', express.json(), (req, res) => {
   res.status(201).send('User created');
 });
 
+// POST /login
+app.post('/login', express.json(), (req, res) => {
+    const { username, password } = req.body;
+  
+    // Validation
+    if (!username || !password) {
+      return res.status(400).send('Username and password are required');
+    }
+  
+    // Find user
+    const user = users.find(user => user.username === username);
+    if (!user) {
+      return res.status(401).send('User does not exist');
+    }
+  
+    // Check password
+    const isMatch = bcrypt.compareSync(password, user.password);
+    if (!isMatch) {
+      return res.status(401).send('Invalid password');
+    }
+  
+    res.send('User logged in');
+  });
+  
 
 
 module.exports = app;
