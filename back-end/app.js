@@ -4,6 +4,10 @@ const fs = require('fs');
 const axios = require('axios');
 const app = express();
 
+require('dotenv').config();
+const bcrypt = require('bcrypt');
+
+
 const API_TOKEN = 'd8019923168b47c899e0a274d7d856e5';
 const upload = multer({ dest: 'uploads/' });  
 
@@ -88,5 +92,37 @@ app.post('/transcribe', upload.single('file'), (req, res) => {
             });
         });
 });
+
+
+// Placeholder for users data
+const users = [];
+
+// POST /register
+app.post('/register', express.json(), (req, res) => {
+  const { username, password } = req.body;
+
+  // Simple validation
+  if (!username || !password) {
+    return res.status(400).send('Username and password are required');
+  }
+
+  // Check if the user already exists
+  const userExists = users.some(user => user.username === username);
+  if (userExists) {
+    return res.status(409).send('User already exists');
+  }
+
+  // Hash password
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+
+  // Store user
+  const newUser = { username, password: hashedPassword };
+  users.push(newUser);
+
+  res.status(201).send('User created');
+});
+
+
 
 module.exports = app;
