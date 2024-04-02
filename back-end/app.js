@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
+const ffmpeg = require('fluent-ffmpeg');
 const axios = require('axios');
 const app = express();
 
@@ -146,7 +147,50 @@ app.post('/login', express.json(), (req, res) => {
   
     res.send('User logged in');
   });
-  
+
+app.post('/convert', upload.single('media'), (req, res) => {
+    const tempPath = req.file.path;
+    const targetFormat = req.body.targetFormat; // The desired target format (e.g., 'mp3', 'mp4')
+
+    // Determine the target file extension and MIME type
+    let extension, mimeType;
+    switch (targetFormat) {
+        case 'mp3':
+            extension = '.mp3';
+            mimeType = 'audio/mpeg';
+            break;
+        case 'mp4':
+            extension = '.mp4';
+            mimeType = 'video/mp4';
+            break;
+        // Add more cases for other target formats as needed
+        default:
+            return res.status(400).send('Unsupported target format');
+    }
+
+    const targetPath = `${tempPath}${extension}`;
+
+    // Perform the conversion
+    ffmpeg(tempPath)
+        .toFormat(targetFormat)
+        .on('end', () => {
+            // Send the converted file to the client or save it as needed
+            res.type(mimeType).download(targetPath, `converted${extension}`, () => {
+                // Optionally, delete the temporary files after sending
+                fs.unlink(tempPath, err => {
+                    if (err) console.error(`Error deleting original file: ${err}`);
+                });
+                fs.unlink(targetPath, err => {
+                    if (err) console.error(`Error deleting converted file: ${err}`);
+                });
+            });
+        })
+        .on('error', (err) => {
+            console.error('Error:', err.message);
+            res.status(500).send(`Conversion error: ${err.message}`);
+        })
+        .save(targetPath);
+});
 
 
 module.exports = app;
