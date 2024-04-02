@@ -148,6 +148,36 @@ app.post('/login', express.json(), (req, res) => {
     res.send('User logged in');
   });
 
+  // POST /change-password
+app.post('/change-password', express.json(), (req, res) => {
+    const { username, oldPassword, newPassword } = req.body;
+
+    // validation
+    if (!username || !oldPassword || !newPassword) {
+        return res.status(400).send('Username, old password, and new password are required');
+    }
+
+    const userIndex = users.findIndex(user => user.username === username);
+    if (userIndex === -1) {
+        return res.status(401).send('User does not exist');
+    }
+
+    const user = users[userIndex];
+    const isMatch = bcrypt.compareSync(oldPassword, user.password);
+    if (!isMatch) {
+        return res.status(401).send('Old password is incorrect');
+    }
+
+    // new password
+    const salt = bcrypt.genSaltSync(10);
+    const hashedNewPassword = bcrypt.hashSync(newPassword, salt);
+
+    // Update password
+    users[userIndex].password = hashedNewPassword;
+
+    res.send('Password updated successfully');
+});
+
 app.post('/convert', upload.single('media'), (req, res) => {
     const tempPath = req.file.path;
     const targetFormat = req.body.targetFormat; // The desired target format (e.g., 'mp3', 'mp4')
@@ -159,7 +189,7 @@ app.post('/convert', upload.single('media'), (req, res) => {
             extension = '.mp3';
             mimeType = 'audio/mpeg';
             break;
-        case 'mp4':
+        case 'mp4': 
             extension = '.mp4';
             mimeType = 'video/mp4';
             break;
