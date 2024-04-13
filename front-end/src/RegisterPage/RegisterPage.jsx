@@ -1,19 +1,41 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../Header/Header'; // Make sure the Header component is in the same directory
-import './RegisterPage.css'; // Ensure this path is correct
+import Header from '../Header/Header'; 
+import './RegisterPage.css'; 
+
+import axios from 'axios';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault();
-    // Implement your register logic here
 
-    // After registration, navigate to the login page or home page
-    navigate('/login');
+    try {
+      const response = await axios.post('http://localhost:3000/register', {
+        username,
+        password
+      });
+
+      // 注册成功后，导航到登录页面
+      if (response.status === 201) {
+        alert('Registration successful');
+        navigate('/login');
+      }
+    } catch (error) {
+      // 处理错误，显示错误消息
+      if (error.response) {
+        if (error.response.status === 409) {
+          alert('Username already exists');
+        } else {
+          alert('Registration failed, please try again.');
+        }
+      } else {
+        alert('Registration failed, please try again.');
+      }
+    }
   };
 
   return (
