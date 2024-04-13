@@ -4,10 +4,20 @@
 
 ```bash
 npm install
+```
+```bash
 npm install axios
+```
+```bash
 npm install express
+```
+```bash
 npm install cors dotenv
+```
+```bash
 npm install helmet bcryptjs
+```
+```bash
 npm install jsonwebtoken
 ```
 
