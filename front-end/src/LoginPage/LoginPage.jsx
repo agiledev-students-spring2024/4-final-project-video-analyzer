@@ -3,15 +3,33 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header'; // Import the reusable Header component
 import './LoginPage.css'; // Make sure this path is correct
 
+import axios from 'axios';
+
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    // add the login funciton here
-    navigate('/home');
+    try {
+      const response = await axios.post('http://localhost:3000/login', {
+        username,
+        password
+      });
+
+      // 登录成功，导航到主页
+      if (response.status === 200) {
+        navigate('/home');
+      }
+    } catch (error) {
+      // 处理错误，例如显示错误消息
+      if (error.response && error.response.status === 401) {
+        alert('Invalid username or password');  // 简单错误处理
+      } else {
+        alert('Login failed, please try again later.');
+      }
+    }
   };
 
   return (
