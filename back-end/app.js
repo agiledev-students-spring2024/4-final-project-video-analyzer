@@ -130,23 +130,26 @@ app.post('/login', express.json(), (req, res) => {
   
     // Validation
     if (!username || !password) {
-      return res.status(400).send('Username and password are required');
+        return res.status(400).send('Username and password are required');
     }
   
     // Find user
     const user = users.find(user => user.username === username);
     if (!user) {
-      return res.status(401).send('User does not exist');
+        return res.status(401).send('User does not exist');
     }
   
-    // Check password
-    const isMatch = bcrypt.compareSync(password, user.password);
-    if (!isMatch) {
-      return res.status(401).send('Invalid password');
-    }
-  
-    res.send('User logged in');
-  });
+    // Check password asynchronously
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+            return res.status(500).send('Server error during password comparison');
+        }
+        if (!isMatch) {
+            return res.status(401).send('Invalid password');
+        }
+        res.send('User logged in');
+    });
+});
 
   // POST /change-password
 app.post('/change-password', express.json(), (req, res) => {
