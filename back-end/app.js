@@ -9,6 +9,7 @@ const cors = require('cors');
 app.use(cors());
 require('dotenv').config();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 const API_TOKEN = 'd8019923168b47c899e0a274d7d856e5';
@@ -124,9 +125,15 @@ app.post('/register', express.json(), (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, salt);
   const newUser = { username, password: hashedPassword };
   users.push(newUser);
+  // 创建jwt
+
+  console.log('JWT Secret:', process.env.JWT_SECRET);
+
+  const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
 
   console.log('User created:', newUser); // 输出新创建的用户信息
-  res.status(201).send('User created');
+  res.status(201).send({ message: 'User created', token });
 });
 
 
@@ -153,7 +160,8 @@ app.post('/login', express.json(), (req, res) => {
         if (!isMatch) {
             return res.status(401).send('Invalid password');
         }
-        res.send('User logged in');
+        const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.send({ message: 'User logged in', token });
     });
 });
 
