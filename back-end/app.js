@@ -4,7 +4,9 @@ const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
 const axios = require('axios');
 const app = express();
-
+const cors = require('cors');
+// 允许所有域名的跨域请求
+app.use(cors());
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 
