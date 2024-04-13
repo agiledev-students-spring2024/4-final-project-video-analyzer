@@ -100,29 +100,33 @@ const users = [];
 
 // POST /register
 app.post('/register', express.json(), (req, res) => {
+  console.log(req.body); // 输出请求体，检查接收到的数据
+
   const { username, password } = req.body;
 
   // Simple validation
   if (!username || !password) {
+    console.log('Username and password are required but missing.'); // 更详细的日志
     return res.status(400).send('Username and password are required');
   }
 
   // Check if the user already exists
   const userExists = users.some(user => user.username === username);
   if (userExists) {
+    console.log('User already exists:', username); // 输出存在的用户
     return res.status(409).send('User already exists');
   }
 
-  // Hash password
+  // Hash password and store user
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
-
-  // Store user
   const newUser = { username, password: hashedPassword };
   users.push(newUser);
 
+  console.log('User created:', newUser); // 输出新创建的用户信息
   res.status(201).send('User created');
 });
+
 
 // POST /login
 app.post('/login', express.json(), (req, res) => {
