@@ -5,7 +5,8 @@ const ffmpeg = require('fluent-ffmpeg');
 const axios = require('axios');
 const app = express();
 const cors = require('cors');
-// 允许所有域名的跨域请求
+const mongoose = require('mongoose');
+
 app.use(cors());
 require('dotenv').config();
 const bcrypt = require('bcrypt');
@@ -14,6 +15,16 @@ const jwt = require('jsonwebtoken');
 
 const API_TOKEN = 'd8019923168b47c899e0a274d7d856e5';
 const upload = multer({ dest: 'uploads/' });  
+
+
+// function to connect mongodb
+const transcriptionSchema = new mongoose.Schema({
+    audioUrl: String,
+    transcript: String,
+    status: String
+});
+
+const Transcription = mongoose.model('Transcription', transcriptionSchema);
 
 // Function to upload a file to the AssemblyAI API
 function upload_file(api_token, filePath) {
@@ -56,10 +67,20 @@ function transcribeAudio(api_token, audio_url) {
                         const transcriptionResult = pollingResponse.data;
 
                         if (transcriptionResult.status === 'completed') {
-                            return transcriptionResult;
+                            // Store to MongoDB when transcription is complete
+                            const newTranscription = new Transcription({
+                                audioUrl: audio_url,
+                                transcript: transcriptionResult.text,
+                                status: transcriptionResult.status
+                            });
+
+                            // Save the new transcription to the database
+                            return newTranscription.save()
+                                .then(() => transcriptionResult); // Return the transcription result after saving
                         } else if (transcriptionResult.status === 'error') {
                             throw new Error(`Transcription failed: ${transcriptionResult.error}`);
                         } else {
+                            // Poll again if the status is not completed or error
                             return new Promise(resolve => setTimeout(resolve, 3000))
                                 .then(pollTranscription);
                         }
