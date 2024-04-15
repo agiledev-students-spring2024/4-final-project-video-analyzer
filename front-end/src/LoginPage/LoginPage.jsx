@@ -48,7 +48,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <Header />
       <main className="login-content">
         <h1>login</h1>
         <form onSubmit={handleLogin}>
