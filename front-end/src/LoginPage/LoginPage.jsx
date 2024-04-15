@@ -10,12 +10,16 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('sessionToken');
-    if (token) {
-      navigate('/home'); // Navigate to the home page if token exists
-    }
-  }, [navigate]);
+  // causing mis redirect problem so commented out for now
+  
+  // useEffect(() => {
+  //   const token = localStorage.getItem('sessionToken');
+  //   console.log('Token is', token)
+  //   if (token !== undefined && token !== null && token !== '') {
+  //     console.log('Token exists:', token)
+  //     navigate('/home'); // Navigate to the home page if token exists
+  //   }
+  // }, [navigate]);
 
   const handleLogin = async (event) => {
     event.preventDefault();

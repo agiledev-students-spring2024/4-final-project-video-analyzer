@@ -19,6 +19,7 @@ const AccountSetting = () => {
     const fetchUserInfo = async () => {
       try {
         const authToken = localStorage.getItem('sessionToken');
+        console.log('Auth token:', authToken);
         if (!authToken) {
           console.error('No auth token available.');
           navigate('/login');
@@ -30,7 +31,7 @@ const AccountSetting = () => {
           }
         });
         setUserInfo(response.data);
-        localStorage.setItem('sessionToken', response.data.sessionToken);
+        //localStorage.setItem('sessionToken', response.data.sessionToken);
       } catch (error) {
         console.error('Failed to fetch user info:', error);
         navigate('/login');

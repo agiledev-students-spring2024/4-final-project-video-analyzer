@@ -193,15 +193,28 @@ app.get('/user-info', (req, res) => {
         console.log('No authorization header present.');
         return res.status(401).send('Unauthorized - Header missing');
     }
-    const token = authHeader.split(' ')[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) {
-            console.log('JWT verification failed:', err);
-            return res.status(401).send('Unauthorized - JWT verification failed');
-        }
-        res.json({ username: user.username, email: user.email });
-    });
+
+    const parts = authHeader.split(' ');
+    if (parts.length === 2 && parts[0] === 'Bearer') {
+        const token = parts[1];
+        console.log('Extracted Token:', token); // Debugging
+        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+            if (err) {
+                console.log('JWT verification failed:', err);
+                if (err.name === 'TokenExpiredError') {
+                    return res.status(401).send('Unauthorized - Token expired');
+                } else {
+                    return res.status(401).send('Unauthorized - JWT verification failed');
+                }
+            }
+            res.json({ username: user.username, email: user.email });
+        });
+    } else {
+        console.log('Authorization header format is not Bearer <token>');
+        return res.status(401).send('Unauthorized - Bearer token malformed');
+    }
 });
+
 
   // POST /change-password
 app.post('/change-password', express.json(), (req, res) => {
