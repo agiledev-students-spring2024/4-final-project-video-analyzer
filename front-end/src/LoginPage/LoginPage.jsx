@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header'; // Import the reusable Header component
 import './LoginPage.css'; // Make sure this path is correct
@@ -10,6 +10,13 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('sessionToken');
+    if (token) {
+      navigate('/home'); // Navigate to the home page if token exists
+    }
+  }, [navigate]);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -20,7 +27,10 @@ const LoginPage = () => {
 
       // 登录成功，导航到主页
       if (response.status === 200) {
+        localStorage.setItem('sessionToken', response.data.token);
         navigate('/home');
+      }else {
+        alert('Login failed, please try again later.'); // Handle other statuses
       }
     } catch (error) {
       // 处理错误，例如显示错误消息

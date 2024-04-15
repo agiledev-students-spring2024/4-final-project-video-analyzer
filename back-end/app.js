@@ -162,42 +162,6 @@ app.post('/register', express.json(), async (req, res) => {
 });
 
 
-// // POST /register
-// app.post('/register', express.json(), (req, res) => {
-//   console.log(req.body); // 输出请求体，检查接收到的数据
-
-//   const { username, password } = req.body;
-
-//   // Simple validation
-//   if (!username || !password) {
-//     console.log('Username and password are required but missing.'); // 更详细的日志
-//     return res.status(400).send('Username and password are required');
-//   }
-
-//   // Check if the user already exists
-//   const userExists = users.some(user => user.username === username);
-//   if (userExists) {
-//     console.log('User already exists:', username); // 输出存在的用户
-//     return res.status(409).send('User already exists');
-//   }
-
-//   // Hash password and store user
-//   const salt = bcrypt.genSaltSync(10);
-//   const hashedPassword = bcrypt.hashSync(password, salt);
-//   const newUser = { username, password: hashedPassword };
-//   users.push(newUser);
-//   // 创建jwt
-
-  
-
-//   const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-
-//   console.log('User created:', newUser); // 输出新创建的用户信息
-//   res.status(201).send({ message: 'User created', token });
-// });
-
-
 app.post('/login', express.json(), async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -226,12 +190,14 @@ app.post('/login', express.json(), async (req, res) => {
 app.get('/user-info', (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).send('Unauthorized');
+        console.log('No authorization header present.');
+        return res.status(401).send('Unauthorized - Header missing');
     }
     const token = authHeader.split(' ')[1];
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
-            return res.status(401).send('Unauthorized');
+            console.log('JWT verification failed:', err);
+            return res.status(401).send('Unauthorized - JWT verification failed');
         }
         res.json({ username: user.username, email: user.email });
     });

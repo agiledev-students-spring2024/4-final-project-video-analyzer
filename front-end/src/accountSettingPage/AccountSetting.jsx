@@ -19,6 +19,11 @@ const AccountSetting = () => {
     const fetchUserInfo = async () => {
       try {
         const authToken = localStorage.getItem('sessionToken');
+        if (!authToken) {
+          console.error('No auth token available.');
+          navigate('/login');
+          return;
+        }
         const response = await axios.get('http://localhost:3000/user-info', {
           headers: {
             Authorization: `Bearer ${authToken}`
