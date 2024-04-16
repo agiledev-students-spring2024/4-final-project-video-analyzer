@@ -7,6 +7,7 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+app.use(express.json());
 app.use(cors());
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
@@ -217,33 +218,38 @@ app.get('/user-info', (req, res) => {
 
 
   // POST /change-password
-app.post('/change-password', express.json(), (req, res) => {
-    const { username, oldPassword, newPassword } = req.body;
+app.post('/change-password', async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        console.log('Old Password:', oldPassword);
+        console.log('New Password:', newPassword);
+        if (!oldPassword || !newPassword) {
+            return res.status(400).send('Old password and new password are required.');
+        }
+        console.log('Authorization Header:', req.headers.authorization);
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.username;
+        
+        const user = await User.findOne({ username: userId });
+        console.log('User:', user);
+        if (!user) {
+            return res.status(404).send('User not found.');
+        }
 
-    // validation
-    if (!username || !oldPassword || !newPassword) {
-        return res.status(400).send('Username, old password, and new password are required');
+        const isMatch = await user.validatePassword(oldPassword);
+        if (!isMatch) {
+            console.log('Incorrect old password.');
+            return res.status(401).send('Incorrect old password.');
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+        res.send('Password successfully changed.');
+    } catch (error) {
+        console.log('Error changing password:', error);
+        res.status(500).send('Server error.');
     }
-
-    const userIndex = users.findIndex(user => user.username === username);
-    if (userIndex === -1) {
-        return res.status(401).send('User does not exist');
-    }
-
-    const user = users[userIndex];
-    const isMatch = bcrypt.compareSync(oldPassword, user.password);
-    if (!isMatch) {
-        return res.status(401).send('Old password is incorrect');
-    }
-
-    // new password
-    const salt = bcrypt.genSaltSync(10);
-    const hashedNewPassword = bcrypt.hashSync(newPassword, salt);
-
-    // Update password
-    users[userIndex].password = hashedNewPassword;
-
-    res.send('Password updated successfully');
 });
 
 app.post('/convert', upload.single('media'), (req, res) => {

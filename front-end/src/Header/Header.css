@@ -1,19 +1,35 @@
+/* Header.css */
+
 .app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-  }
-  
-  /* .logo, .account-icon {
-    
-  } */
-  
-  .menu-button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* You can adjust padding as needed */
+  background-color: #f8f9fa; /* Light grey background */
+  border-bottom: 1px solid #e1e1e1; /* Add a border for definition */
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 30px; /* Adjust the font-size as needed */
+  padding: 8px 15px; /* Add padding for easier touch */
+  margin-right: auto; /* Push everything else to the right */
+  cursor: pointer;
+  color:black;
+}
+
+.logo {
+  display: block; /* Block display to fill available space */
+  height: auto; /* Keep original aspect ratio */
+  max-height: 50px; /* Adjust the size as needed */
+  margin: 0 auto; /* Center the logo */
+}
+
+.account-icon {
+  padding: 8px 15px; /* Padding for easier touch */
+  cursor: pointer;
+  /* If the account icon is an image, you may want to set a size */
+  height: 50px; /* Example size */
+  width: auto; /* Keep the aspect ratio */
+}
