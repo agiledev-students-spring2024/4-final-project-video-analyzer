@@ -9,7 +9,7 @@ const MenuPage = () => {
     <div className="menu-page">
       <button className="close-menu" onClick={() => navigate(-1)}>×</button>
       <ul className="menu-list">
-        <li onClick={() => navigate('/')}>Home</li>
+        <li onClick={() => navigate('/home')}>Home</li>
         <li onClick={() => navigate('/account-setting')}>Account Setting</li>
         <li onClick={() => navigate('/about')}>About Us</li>
       </ul>

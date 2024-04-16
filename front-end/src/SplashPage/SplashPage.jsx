@@ -8,7 +8,6 @@ const SplashPage = () => {
 
   return (
     <div className="splash-container">
-      <Header />
       <main className="splash-content">
         <h1>Video Transcriber</h1>
         <p>Some dummy text Some dummy textSome dummy textSome dummy textSome dummy text</p>

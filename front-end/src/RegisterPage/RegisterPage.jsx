@@ -40,7 +40,6 @@ const RegisterPage = () => {
 
   return (
     <div className="register-container">
-      <Header />
       <main className="register-content">
         <h1>Register</h1>
         <form onSubmit={handleRegister}>

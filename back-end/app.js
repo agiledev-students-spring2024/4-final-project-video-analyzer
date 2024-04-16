@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 
 app.use(cors());
 require('dotenv').config();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 
@@ -25,6 +25,20 @@ const transcriptionSchema = new mongoose.Schema({
 });
 
 const Transcription = mongoose.model('Transcription', transcriptionSchema);
+
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log('MongoDB connected successfully.');
+    } catch (error) {
+        console.error('MongoDB connection failed:', error.message);
+    }
+};
+
+connectDB();
 
 // Function to upload a file to the AssemblyAI API
 function upload_file(api_token, filePath) {
@@ -119,72 +133,88 @@ app.post('/transcribe', upload.single('file'), (req, res) => {
 });
 
 
-// Placeholder for users data
-const users = [];
+const User = require('./models/User'); // Adjust path as necessary
 
-// POST /register
-app.post('/register', express.json(), (req, res) => {
-  console.log(req.body); // 输出请求体，检查接收到的数据
-
-  const { username, password } = req.body;
-
-  // Simple validation
-  if (!username || !password) {
-    console.log('Username and password are required but missing.'); // 更详细的日志
-    return res.status(400).send('Username and password are required');
-  }
-
-  // Check if the user already exists
-  const userExists = users.some(user => user.username === username);
-  if (userExists) {
-    console.log('User already exists:', username); // 输出存在的用户
-    return res.status(409).send('User already exists');
-  }
-
-  // Hash password and store user
-  const salt = bcrypt.genSaltSync(10);
-  const hashedPassword = bcrypt.hashSync(password, salt);
-  const newUser = { username, password: hashedPassword };
-  users.push(newUser);
-  // 创建jwt
-
-  console.log('JWT Secret:', process.env.JWT_SECRET);
-
-  const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-
-  console.log('User created:', newUser); // 输出新创建的用户信息
-  res.status(201).send({ message: 'User created', token });
-});
-
-
-// POST /login
-app.post('/login', express.json(), (req, res) => {
+app.post('/register', express.json(), async (req, res) => {
     const { username, password } = req.body;
-  
-    // Validation
     if (!username || !password) {
         return res.status(400).send('Username and password are required');
     }
-  
-    // Find user
-    const user = users.find(user => user.username === username);
-    if (!user) {
-        return res.status(401).send('User does not exist');
-    }
-  
-    // Check password asynchronously
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-            return res.status(500).send('Server error during password comparison');
+
+    try {
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(409).send('User already exists');
         }
+
+        const hashedPassword = await User.encryptPassword(password);
+        const newUser = new User({ username, password: hashedPassword });
+        await newUser.save();
+
+        console.log('JWT Secret:', process.env.JWT_SECRET);
+
+        const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.status(201).send({ message: 'User created', token });
+    } catch (error) {
+        console.error('Server error', error);
+        res.status(500).send('Server error');
+    }
+});
+
+
+app.post('/login', express.json(), async (req, res) => {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        return res.status(400).send('Username and password are required');
+    }
+
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(401).send('User does not exist');
+        }
+
+        const isMatch = await user.validatePassword(password);
         if (!isMatch) {
             return res.status(401).send('Invalid password');
         }
+
         const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.send({ message: 'User logged in', token });
-    });
+    } catch (error) {
+        console.error('Server error', error);
+        res.status(500).send('Server error during password comparison');
+    }
 });
+
+app.get('/user-info', (req, res) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        console.log('No authorization header present.');
+        return res.status(401).send('Unauthorized - Header missing');
+    }
+
+    const parts = authHeader.split(' ');
+    if (parts.length === 2 && parts[0] === 'Bearer') {
+        const token = parts[1];
+        console.log('Extracted Token:', token); // Debugging
+        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+            if (err) {
+                console.log('JWT verification failed:', err);
+                if (err.name === 'TokenExpiredError') {
+                    return res.status(401).send('Unauthorized - Token expired');
+                } else {
+                    return res.status(401).send('Unauthorized - JWT verification failed');
+                }
+            }
+            res.json({ username: user.username, email: user.email });
+        });
+    } else {
+        console.log('Authorization header format is not Bearer <token>');
+        return res.status(401).send('Unauthorized - Bearer token malformed');
+    }
+});
+
 
   // POST /change-password
 app.post('/change-password', express.json(), (req, res) => {
