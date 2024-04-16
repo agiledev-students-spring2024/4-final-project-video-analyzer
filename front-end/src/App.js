@@ -12,6 +12,7 @@ import HistoryPage from './HistoryPage/HistoryPage';
 import RecordingDetails from './RecordDetailPage/RecordingDetails';
 import RecordPage from './RecordPage/RecordPage';
 import UploadPage from './UploadPage/UploadPage';
+import ChangePasswordForm from './ChangePW/ChangePW';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/history/:historyId" element={<RecordingDetails />} />
         <Route path="/start-recording" element={<RecordPage />} />
         <Route path="/upload-file" element={<UploadPage />} />
+        <Route path="/change-password" element={<ChangePasswordForm />} />
 
 
       </Routes>

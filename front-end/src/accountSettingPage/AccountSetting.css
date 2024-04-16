@@ -1,8 +1,6 @@
 .account-setting-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
   background-color: #f0f0f0; /* Adjust the color to match your design */
 }
@@ -33,4 +31,27 @@
   cursor: pointer;
   font-size: 16px;
   color: white;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background-color: #00BFFF; /* Example color, adjust as needed */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column; /* Stacks flex items vertically */
+  align-items: center; /* Center items horizontally in the container */
+  justify-content: center; /* Center items vertically in the container */
+  height: 100%;
+}
+
+/* Optional: Add some space between buttons */
+.button-container button {
+  margin-bottom: 10px;
 }

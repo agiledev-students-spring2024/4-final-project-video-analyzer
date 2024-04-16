@@ -13,6 +13,11 @@ const AccountSetting = () => {
     navigate('/change-password');
   };
 
+  // handle user logout
+  const handleLogout = () => {
+    localStorage.removeItem('sessionToken');
+    navigate('/login');
+  }
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
@@ -47,13 +52,20 @@ const AccountSetting = () => {
       <main className="account-setting-content">
         <h1>My Account</h1>
         <p className="account-email">{userInfo.username}</p>
-        <button 
-          className="change-password-button" 
-          onClick={handleChangePasswordClick}>
-          Change Password
-        </button>
+        <div className="button-container">
+          <button 
+            className="change-password-button" 
+            onClick={handleChangePasswordClick}>
+            Change Password
+          </button>
+          <button 
+            className="logout-button" 
+            onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </main>
-    </div>
+  </div>
   );
 };
 

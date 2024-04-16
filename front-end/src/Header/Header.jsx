@@ -7,9 +7,18 @@ const Header = () => {
 
   return (
     <header className="app-header">
-      <button className="menu-button" onClick={() => navigate('/menu')}>☰</button>
-      <img src="path-to-your-logo.png" alt="logo" className="logo" />
-      <img src="path-to-your-account-icon.png" alt="account icon" className="account-icon" />
+      <button className="menu-button" onClick={() => navigate('/menu')}>
+        {/* Insert hamburger icon here */}
+        ☰
+      </button>
+      <div className="logo">
+        {/* Insert logo here */}
+        <img src="path-to-your-logo.png" alt="logo" />
+      </div>
+      <div className="account-icon" onClick={() => navigate('/account')}>
+        {/* Insert account icon here */}
+        <img src="path-to-your-account-icon.png" alt="account icon" />
+      </div>
     </header>
   );
 };

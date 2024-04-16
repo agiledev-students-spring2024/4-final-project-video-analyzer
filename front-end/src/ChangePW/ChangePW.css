@@ -1,0 +1,62 @@
+/* Basic reset for styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif; /* Sets a pleasant sans-serif font */
+    background-color: #f4f4f9; /* Light grey background for slight contrast */
+    display: flex;
+    align-items: center; /* Centers the form vertically */
+    justify-content: center; /* Centers the form horizontally */
+    min-height: 100vh; /* Full viewport height */
+    margin: 0;
+}
+
+form {
+    background-color: #ffffff; /* White background for the form */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners for the form */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    width: 100%;
+    max-width: 400px; /* Maximum width of the form */
+}
+
+label {
+    font-weight: bold; /* Makes the label text bold */
+    margin-bottom: 10px;
+    display: block; /* Ensures label uses its own line */
+}
+
+input[type="password"] {
+    width: 100%; /* Full width to fill the form */
+    padding: 8px; /* Padding for easier text entry */
+    margin-top: 5px;
+    margin-bottom: 20px; /* Space between the inputs */
+    border-radius: 4px; /* Rounded corners on inputs */
+    border: 1px solid #ddd; /* Light grey border */
+}
+
+button {
+    background-color: #5c67f2; /* A pleasant blue */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; /* Rounded corners on the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    width: 100%; /* Full width button */
+    font-size: 16px;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #4a54e1; /* Darker blue on hover for button */
+}
+
+p {
+    color: #e63946; /* Red color for messages (errors, success) */
+    font-size: 14px;
+    margin-top: 10px; /* Space above the message text */
+}
