@@ -1,53 +1,69 @@
 .upload-page {
     font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    min-height: calc(100vh - 60px); /* Adjust based on header height */
+    background: #f4f4f9; /* Consistent background color with home page */
 }
 
 .upload-container {
-    width: 100%;
+    width: 90%;
     max-width: 600px;
-    margin: 0 auto;
+    background-color: #ffffff; /* Add background color for contrast */
     padding: 20px;
+    border-radius: 8px; /* Rounded corners for modern look */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
     text-align: center;
+    box-sizing: border-box;
 }
 
 .upload-container h1 {
-    margin: 20px 0;
-    color: #333;
+    color: #5c67f2; /* Theme color similar to button on HomePage */
+    font-size: 2em; /* Larger font size for headers */
 }
 
 .upload-container p {
-    margin-bottom: 30px;
-    color: #666;
-}
-
-.upload-input {
-    margin: 20px 0;
-    padding: 10px;
+    color: #666; /* Soft text color */
+    font-size: 1em;
+    line-height: 1.5;
 }
 
 .upload-button {
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #007bff;
+    background-color: #5c67f2; /* Same as .button on HomePage */
     color: white;
     border: none;
+    padding: 15px 30px;
+    margin: 10px 0; /* Consistent margin with HomePage buttons */
     border-radius: 5px;
+    font-size: 18px; /* Larger font size for readability */
     cursor: pointer;
-    display: inline-block; /* Allows the button to sit next to other inline or inline-block elements */
+    transition: background-color 0.3s;
 }
 
-/* You can add hover effects to the buttons */
 .upload-button:hover {
-    background-color: #009b9b;
+    background-color: #4a54e1; /* Consistent hover effect with HomePage */
 }
 
-/* Hide the actual file input visually but remain accessible */
-.upload-input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+.transcription-result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #eee; /* Light background for the result area */
+    border-radius: 5px; /* Rounded corners for consistency */
+    font-family: 'Courier New', Courier, monospace; /* Monospace font for clearer text display */
+    white-space: pre-wrap; /* Ensures that whitespaces and line breaks are preserved */
+    overflow-y: auto; /* Allows vertical scrolling only */
+    max-height: 300px; /* Sets a maximum height to maintain layout consistency */
+    box-sizing: border-box; /* Includes padding and border in the height calculation */
+    width: 100%; /* Ensure it does not exceed the container width */
+    word-wrap: break-word; /* Ensures words do not break out of their container */
 }
 
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .upload-button {
+        width: 80%; /* Responsive width consistent with HomePage */
+    }
+}

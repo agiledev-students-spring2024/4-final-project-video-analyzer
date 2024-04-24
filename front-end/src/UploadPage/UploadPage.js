@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header'; // Adjust the import path as necessary
 import './UploadPage.css';
+import axios from 'axios';
 
 const UploadPage = () => {
     const [transcriptionResult, setTranscriptionResult] = useState('');
 
-    const handleUpload = (event) => {
+    const handleUpload = async (event) => {
         const file = event.target.files[0];
         console.log('File uploaded:', file);
         if (!file) return;
@@ -13,20 +14,15 @@ const UploadPage = () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        fetch('/transcribe', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Transcription success:', data);
+        try {
+            const response = await axios.post('http://localhost:3000/transcribe', formData);
+            console.log('Transcription success:', response.data);
             // Update the transcription result state
-            setTranscriptionResult(data.text || 'No transcription text received.');
-        })
-        .catch(error => {
+            setTranscriptionResult(response.data.text || 'No transcription text received.');
+        } catch (error) {
             console.error('Transcription error:', error);
             setTranscriptionResult('Error during transcription.');
-        });        
+        }
     };
 
     return (

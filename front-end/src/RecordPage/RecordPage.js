@@ -85,7 +85,7 @@ const RecordPage = () => {
             // if the media is an audio, set targetFormat to 'mp3'
             if (mediaBlob.type.includes('audio')) formData.append('targetFormat', 'mp3');
 
-            fetch('/convert', {
+            fetch('http://localhost:3000/convert', {
                 method: 'POST', 
                 body: formData
             })
