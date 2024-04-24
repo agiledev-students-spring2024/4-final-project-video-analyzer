@@ -253,8 +253,12 @@ app.post('/change-password', async (req, res) => {
 });
 
 app.post('/convert', upload.single('media'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded');
+    }
+
     const tempPath = req.file.path;
-    const targetFormat = req.body.targetFormat; // The desired target format (e.g., 'mp3', 'mp4')
+    const targetFormat = req.body.targetFormat;
 
     // Determine the target file extension and MIME type
     let extension, mimeType;
@@ -263,38 +267,33 @@ app.post('/convert', upload.single('media'), (req, res) => {
             extension = '.mp3';
             mimeType = 'audio/mpeg';
             break;
-        case 'mp4': 
+        case 'mp4':
             extension = '.mp4';
             mimeType = 'video/mp4';
             break;
-        // Add more cases for other target formats as needed
         default:
             return res.status(400).send('Unsupported target format');
     }
 
     const targetPath = `${tempPath}${extension}`;
 
-    // Perform the conversion
     ffmpeg(tempPath)
         .toFormat(targetFormat)
-        .on('end', () => {
-            // Send the converted file to the client or save it as needed
+        .output(targetPath)  // Set output file path
+        .on('end', function() {
+            console.log('Conversion successful');
             res.type(mimeType).download(targetPath, `converted${extension}`, () => {
-                // Optionally, delete the temporary files after sending
-                fs.unlink(tempPath, err => {
-                    if (err) console.error(`Error deleting original file: ${err}`);
-                });
-                fs.unlink(targetPath, err => {
-                    if (err) console.error(`Error deleting converted file: ${err}`);
-                });
+                fs.unlink(tempPath, (err) => { if (err) console.log(err); });
+                fs.unlink(targetPath, (err) => { if (err) console.log(err); });
             });
         })
-        .on('error', (err) => {
-            console.error('Error:', err.message);
-            res.status(500).send(`Conversion error: ${err.message}`);
+        .on('error', function(err) {
+            console.log('An error occurred: ' + err.message);
+            res.status(500).send('Conversion error: ' + err.message);
         })
-        .save(targetPath);
+        .run();  // Execute the conversion
 });
+
 
 
 module.exports = app;
