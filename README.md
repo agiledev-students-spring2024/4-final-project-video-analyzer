@@ -1,5 +1,5 @@
 <h1 align="center">final-project-video-analyzer</h1>
-![App Image](https://github.com/agiledev-students-spring2024/4-final-project-video-analyzer/raw/main/images/appImage.png "App Image")
+![App Image](https://github.com/agiledev-students-spring2024/4-final-project-video-analyzer/blob/master/images/appImage.png "App Image")
 Video Analyzer is a  application designed to offer users a platform for managing video content. Built using React for the frontend, Node.js for the backend, and MongoDB for database management, this application ensures a efficient user experience.
 
 
