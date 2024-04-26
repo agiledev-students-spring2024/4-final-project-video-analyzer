@@ -12,9 +12,9 @@ const RecordingDetails = () => {
   };
 
   return (
-    <div className="container">
+    <div className="main-content">
       <Header />
-      <div className="content">
+      <div className="content-section">
         <h1>Recording Details</h1>
         <div className="details">
           <p className="result">
@@ -24,10 +24,12 @@ const RecordingDetails = () => {
             Some dummy text Some dummy text
           </p>
         </div>
-        <button className="back-button" onClick={goBack}>Back</button>
+        <button className="button back-button" onClick={goBack}>Back</button>
       </div>
     </div>
   );
+  
+  
 };
 
 export default RecordingDetails;

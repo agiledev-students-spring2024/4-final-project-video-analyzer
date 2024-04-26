@@ -1,54 +1,81 @@
-.record-page .record-main {
-    text-align: center;
-}
+/* RecordPage.css */
 
-.record-page .record-main .media-placeholder {
-    width: 80%;
-    height: 200px;
-    margin: 20px auto;
-    background-color: #ccc; /* Placeholder color */
-}
-
-.record-page .record-main .video-record-btn {
-    background-color: #007bff; /* Turquoise */
+.record-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    min-height: calc(100vh - 60px); /* Adjust based on header height */
+    background: #f4f4f9; /* Light grey background for contrast */
+  }
+  
+  .record-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1800px;
+    padding: 0 20px;
+    width: 100%;
+  }
+  
+  .media-display,
+  .media-placeholder {
+    width: 100%;
+    max-width: 640px; /* Adjust as needed */
+    height: 180px; /* Adjust as needed, maintain aspect ratio */
+    background-color: #ccc; /* Placeholder background */
+    margin-bottom: 20px;
+  }
+  
+  .media-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .video-record-btn,
+  .audio-record-btn {
+    background-color: #5c67f2; /* A pleasant blue */
     color: white;
     border: none;
+    padding: 15px 30px;
+    margin: 10px 0; /* Spacing between buttons */
     border-radius: 5px;
-    padding: 10px 20px;
-    margin: 10px auto; /* Center the buttons */
+    font-size: 18px;
     cursor: pointer;
-    display: block; /* Ensure buttons are block level for width to take effect */
-    width: 60%; /* Adjust width as desired */
-    box-sizing: border-box; /* Include padding and border in the width */
-}
-
-.record-page .record-main .audio-record-btn {
-    background-color: #007bff; /* Turquoise */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin: 10px auto; /* Center the buttons */
-    cursor: pointer;
-    display: block; /* Ensure buttons are block level for width to take effect */
-    width: 60%; /* Adjust width as desired */
-    box-sizing: border-box; /* Include padding and border in the width */
-}
-
-.record-page .record-main .or-divider {
+    transition: background-color 0.3s;
+  }
+  
+  .video-record-btn:hover,
+  .audio-record-btn:hover {
+    background-color: #4a54e1; /* Darker blue on hover */
+  }
+  
+  .or-divider {
+    color: #000;
     margin: 20px 0;
-    font-size: 1.5em;
-}
-
-/* Additional styles for the 'OR' divider for visual enhancement */
-.or-divider {
-    color: #333;
-    opacity: 0.5;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 600px) {
-    .record-page .record-main .record-btn {
-        width: 80%; /* Adjust as needed for smaller screens */
-    }
-}
+  }
+  
+  .transcription-result {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px; /* Adjust as needed */
+  }
+  
+  .transcription-result h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .transcription-result pre {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }

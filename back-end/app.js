@@ -1,11 +1,13 @@
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
-const ffmpeg = require('fluent-ffmpeg');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
 const axios = require('axios');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const { AssemblyAI } = require('assemblyai');
 
 app.use(express.json());
 app.use(cors());
@@ -133,6 +135,68 @@ app.post('/transcribe', upload.single('file'), (req, res) => {
         });
 });
 
+// app.post('/transcribe', upload.single('file'), async (req, res) => {
+//     if (!req.file) {
+//         return res.status(400).send('No file uploaded');
+//     }
+
+//     const filestackApiKey = process.env.FILESTACK_API_KEY;
+//     const assemblyApiKey = process.env.ASSEMBLYAI_API_KEY;
+
+//     try {
+//         // Upload file to Filestack
+//         const formdata = new FormData();
+//         formdata.append('fileUpload', fs.createReadStream(req.file.path), req.file.originalname);
+
+//         const filestackResponse = await fetch(`https://www.filestackapi.com/api/store/S3?key=${filestackApiKey}`, {
+//             method: 'POST',
+//             body: formdata,
+//             headers: {
+//                 ...formdata.getHeaders(),
+//             },
+//         });
+
+//         if (!filestackResponse.ok) {
+//             throw new Error('Failed to upload file to Filestack');
+//         }
+
+//         const filestackResult = await filestackResponse.json();
+//         const fileUrl = filestackResult.url;
+
+//         // Transcribe using AssemblyAI
+//         const assemblyClient = new AssemblyAI({ apiKey: assemblyApiKey });
+
+//         const transcriptRequest = await assemblyClient.transcripts.transcribe({
+//             audio: fileUrl,
+//             speaker_labels: true
+//         });
+
+//         // Check transcript processing status
+//         let transcript = await assemblyClient.transcripts.get(transcriptRequest.id);
+//         while (transcript.status !== 'completed') {
+//             if (transcript.status === 'failed') {
+//                 throw new Error('Transcription failed');
+//             }
+//             await new Promise(resolve => setTimeout(resolve, 5000)); // Poll every 5 seconds
+//             transcript = await assemblyClient.transcripts.get(transcript.id);
+//         }
+
+//         // Send transcription to client
+//         res.json({ transcript: transcript.text });
+
+//     } catch (error) {
+//         console.error('Error:', error);
+//         res.status(500).send('An error occurred: ' + error.message);
+//     } finally {
+//         // Cleanup: remove uploaded file from local storage
+//         fs.unlink(req.file.path, err => {
+//             if (err) console.error('Failed to delete local file:', err);
+//         });
+//     }
+// });
+
+
+
 
 const User = require('./models/User'); // Adjust path as necessary
 
@@ -252,48 +316,48 @@ app.post('/change-password', async (req, res) => {
     }
 });
 
-app.post('/convert', upload.single('media'), (req, res) => {
+
+
+app.post('/convert', upload.single('media'), async (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file uploaded');
     }
 
-    const tempPath = req.file.path;
-    const targetFormat = req.body.targetFormat;
+    const filePath = req.file.path;
+    const formdata = new FormData();
+    
+    formdata.append('file', fs.createReadStream(filePath), req.file.originalname);
 
-    // Determine the target file extension and MIME type
-    let extension, mimeType;
-    switch (targetFormat) {
-        case 'mp3':
-            extension = '.mp3';
-            mimeType = 'audio/mpeg';
-            break;
-        case 'mp4':
-            extension = '.mp4';
-            mimeType = 'video/mp4';
-            break;
-        default:
-            return res.status(400).send('Unsupported target format');
+    // Sending file to Filestack
+    try {
+        const response = await fetch(`https://www.filestackapi.com/api/store/S3?key=${process.env.FILESTACK_API_KEY}`, {
+            method: 'POST',
+            body: formdata,
+            headers: {
+                ...formdata.getHeaders(),
+                'Content-Type': 'video/mp4'  // Assuming video/mp4, adjust based on actual content type
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload file to Filestack');
+        }
+
+        const result = await response.json();
+        const fileUrl = result.url; // The URL where Filestack stored the uploaded file
+
+        // Optionally, start transcription here or return URL to client for further processing
+        res.json({ url: fileUrl });
+
+    } catch (error) {
+        console.error('Error in /convert:', error);
+        res.status(500).send('Failed to convert and upload file.');
+    } finally {
+        // Clean up: delete the temporary file
+        fs.unlink(filePath, err => {
+            if (err) console.error('Error deleting the temporary file:', err);
+        });
     }
-
-    const targetPath = `${tempPath}${extension}`;
-
-    ffmpeg(tempPath)
-        .toFormat(targetFormat)
-        .output(targetPath)  // Set output file path
-        .on('end', function() {
-            console.log('Conversion successful');
-            res.type(mimeType).download(targetPath, `converted${extension}`, () => {
-                fs.unlink(tempPath, (err) => { if (err) console.log(err); });
-                fs.unlink(targetPath, (err) => { if (err) console.log(err); });
-            });
-        })
-        .on('error', function(err) {
-            console.log('An error occurred: ' + err.message);
-            res.status(500).send('Conversion error: ' + err.message);
-        })
-        .run();  // Execute the conversion
 });
-
-
 
 module.exports = app;

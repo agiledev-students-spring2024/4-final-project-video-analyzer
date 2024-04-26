@@ -1,44 +1,64 @@
-.history-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f0f0f0;
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Apply consistent padding and layout to all main content areas */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Align content to the top */
+  min-height: 100vh;
+  background: #f4f4f9;
+  padding: 20px;
+  width: 100%; /* Full width */
+}
+
+
+/* Container for sections like history, record, upload etc. */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Full width */
+  max-width: 600px; /* Or whatever width suits your design */
+  margin: 0 auto; /* Center in the viewport */
+}
+
+/* Styling for the history list container */
+.history-list-container {
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* Styles for the history list itself */
+.history-list {
+  list-style: none;
+  width: 100%;
+}
+
+/* Styles for individual history items */
+.history-list li {
+  background-color: #ffffff;
+  color: #333333;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left; /* Align text to the left */
+}
+
+.history-list li:hover {
+  background-color: #f8f8f8;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .button-group {
+      max-width: 100%; /* Full width on smaller screens */
   }
-  
-  .history-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-  
-  .history-content h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .history-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-  }
-  
-  .history-list li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-  }
-  
-  .history-list li:last-child {
-    border-bottom: none;
-  }
-  
-  .history-list li:hover {
-    background-color: #e0e0e0;
-  }
+}
