@@ -1,4 +1,9 @@
 # final-project-video-analyzer
+## Live Application
+
+Access the live deployment of our video analyzer application. It is hosted on DigitalOcean. Here you can test all the features of the application in real-time.
+
+[Visit Video Analyzer App](https://octopus-app-vrerg.ondigitalocean.app/)
 
 ## Installation
 
@@ -42,3 +47,4 @@ The `JWT_SECRET` is a secret key used for signing and verifying the JWT tokens u
    ```bash
    JWT_SECRET=your_generated_secret_here
    ```
+   
