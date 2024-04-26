@@ -1,4 +1,8 @@
-# final-project-video-analyzer
+<h1 align="center">final-project-video-analyzer</h1>
+![App Image](images/appImage.png "App Image")
+Video Analyzer is a  application designed to offer users a platform for managing video content. Built using React for the frontend, Node.js for the backend, and MongoDB for database management, this application ensures a efficient user experience.
+
+
 ## Live Application
 
 Access the live deployment of our video analyzer application. It is hosted on DigitalOcean. Here you can test all the features of the application in real-time.
