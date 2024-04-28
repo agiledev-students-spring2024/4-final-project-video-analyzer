@@ -1,51 +1,4 @@
-.upload-page {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    min-height: calc(100vh - 60px); /* Adjust based on header height */
-    background: #f4f4f9; /* Consistent background color with home page */
-}
 
-.upload-container {
-    width: 90%;
-    max-width: 600px;
-    background-color: #ffffff; /* Add background color for contrast */
-    padding: 20px;
-    border-radius: 8px; /* Rounded corners for modern look */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    text-align: center;
-    box-sizing: border-box;
-}
-
-.upload-container h1 {
-    color: #5c67f2; /* Theme color similar to button on HomePage */
-    font-size: 2em; /* Larger font size for headers */
-}
-
-.upload-container p {
-    color: #666; /* Soft text color */
-    font-size: 1em;
-    line-height: 1.5;
-}
-
-.upload-button {
-    background-color: #5c67f2; /* Same as .button on HomePage */
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    margin: 10px 0; /* Consistent margin with HomePage buttons */
-    border-radius: 5px;
-    font-size: 18px; /* Larger font size for readability */
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.upload-button:hover {
-    background-color: #4a54e1; /* Consistent hover effect with HomePage */
-}
 
 .transcription-result {
     margin-top: 20px;
@@ -54,7 +7,7 @@
     border-radius: 5px; /* Rounded corners for consistency */
     font-family: 'Courier New', Courier, monospace; /* Monospace font for clearer text display */
     white-space: pre-wrap; /* Ensures that whitespaces and line breaks are preserved */
-    overflow-y: auto; /* Allows vertical scrolling only */
+    overflow-y: auto; /* Allows vertical scrolling */
     max-height: 300px; /* Sets a maximum height to maintain layout consistency */
     box-sizing: border-box; /* Includes padding and border in the height calculation */
     width: 100%; /* Ensure it does not exceed the container width */

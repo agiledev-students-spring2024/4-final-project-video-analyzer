@@ -7,6 +7,7 @@
   padding: 10px 20px; /* You can adjust padding as needed */
   background-color: #f8f9fa; /* Light grey background */
   border-bottom: 1px solid #e1e1e1; /* Add a border for definition */
+  top: 0;
 }
 
 .menu-button {
@@ -20,16 +21,21 @@
 }
 
 .logo {
-  display: block; /* Block display to fill available space */
-  height: auto; /* Keep original aspect ratio */
-  max-height: 50px; /* Adjust the size as needed */
-  margin: 0 auto; /* Center the logo */
+  padding: 8px 15px; /* Padding for easier touch */
+  cursor: pointer;
+  /* Set the desired size for the account icon container */
+  height: 50px; /* Adjust the height as needed */
+  width: 50px; /* Adjust the width as needed */
+  display: flex; /* Add this to center the image within the container */
 }
 
 .account-icon {
   padding: 8px 15px; /* Padding for easier touch */
   cursor: pointer;
-  /* If the account icon is an image, you may want to set a size */
-  height: 50px; /* Example size */
-  width: auto; /* Keep the aspect ratio */
+  /* Set the desired size for the account icon container */
+  height: 50px; /* Adjust the height as needed */
+  width: 50px; /* Adjust the width as needed */
+  display: flex; /* Add this to center the image within the container */
 }
+
+

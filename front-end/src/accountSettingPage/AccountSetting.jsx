@@ -47,8 +47,10 @@ const AccountSetting = () => {
   }, []);
 
   return (
+    <div>
+    <Header />
     <div className="account-setting-container">
-      <Header />
+      
       <main className="account-setting-content">
         <h1>My Account</h1>
         <p className="account-email">{userInfo.username}</p>
@@ -65,6 +67,7 @@ const AccountSetting = () => {
           </button>
         </div>
       </main>
+  </div>
   </div>
   );
 };

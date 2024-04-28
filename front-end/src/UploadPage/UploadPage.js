@@ -26,16 +26,17 @@ const UploadPage = () => {
     };
 
     return (
-        <div className="upload-page">
+        <div>
             <Header />
-            <div className="upload-container">
-                <h1>Upload</h1>
-                <p>Some dummy text Some dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy textSome dummy text</p>
-                <input type="file" id="fileInput" className="upload-input" hidden onChange={handleUpload} />
-                <button className="upload-button" onClick={() => document.getElementById('fileInput').click()}>
-                    Choose File
-                </button>
-                {/* Display the transcription result */}
+            <div className="main-content">
+                <div className="button-group">
+                    <h1>Upload</h1>
+                    <p>Supported File Formats: .mp3, .wav, .flac</p>
+                    <input type="file" id="fileInput" className="upload-input" hidden onChange={handleUpload} />
+                    <button className="button" onClick={() => document.getElementById('fileInput').click()}>
+                        Choose File
+                    </button>
+                </div>
                 <div className="transcription-result">
                     <h2>Transcription Result:</h2>
                     <pre>{transcriptionResult}</pre>
@@ -43,6 +44,7 @@ const UploadPage = () => {
             </div>
         </div>
     );
+    
 };
 
 export default UploadPage;

@@ -11,20 +11,23 @@ const HistoryPage = () => {
   };
 
   return (
-    <div className="history-container">
-      <Header />
-      <main className="history-content">
-        <h1>History</h1>
-        <ul className="history-list"> 
-          <li onClick={() => handleHistoryClick(1)}>History_1</li>
-          <li onClick={() => handleHistoryClick(2)}>History_2</li>
-          <li onClick={() => handleHistoryClick(3)}>History_3</li>
-          <li onClick={() => handleHistoryClick(4)}>History_4</li>
-          {/* Add more history items as needed */}
-        </ul>
-      </main>
+    <div className="main-content">
+        <Header />
+        <div className="button-group">
+            <h1>History</h1>
+            <div className="history-list-container">
+                <ul className="history-list">
+                    <li onClick={() => handleHistoryClick(1)}>History_1</li>
+                    <li onClick={() => handleHistoryClick(2)}>History_2</li>
+                    <li onClick={() => handleHistoryClick(3)}>History_3</li>
+                    <li onClick={() => handleHistoryClick(4)}>History_4</li>
+                    {/* Add more history items as needed */}
+                </ul>
+            </div>
+        </div>
     </div>
-  );
+);
+
 };
 
 export default HistoryPage;

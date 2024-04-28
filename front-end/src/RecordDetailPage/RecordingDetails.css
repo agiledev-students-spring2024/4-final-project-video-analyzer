@@ -1,103 +1,54 @@
-/* RecordingDetails.css */
-
-/* Basic Reset */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  /* Header - Assuming your <Header /> component has its own styling */
-  
-  /* Main Content Area */
-  .history-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .history-content h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 2rem;
-  }
-  
-  .history-list {
-    list-style: none;
-  }
-  
-  .history-list li {
-    padding: 0.75rem 1rem;
-    background: #e9ecef;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .history-list li:hover {
-    background-color: #dde1e3;
-  }
-
-  .content h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 2rem;
-  }
-
-  .result {
-    text-align: center;
-    color: #333;
-    margin-bottom: 2rem;
-  }
-  
-  /* Link/Button Back */
-  .back-button {
-    display: block;
-    width: max-content;
-    padding: 10px 20px;
-    margin: 2rem auto;
-    background: #007bff;
-    color: #fff;
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-  }  
-  /* RecordingDetails.css */
-
-/* General resets for better control
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-} */
-
-/* URL styling */
-.details .url {
-  color: #007bff;
-  word-break: break-all;
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Include padding and borders in the element's total width and height */
 }
 
-/* Results area */
-.details .result {
+.main-content {
+  padding-top: 60px; /* Add padding-top equal to the height of the header */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #f4f4f9;
+  padding: 20px;
+  width: 100%;
+}
+
+.content-section {
+  width: 100%;
+  max-width: 600px; /* Adjust as needed */
+  margin-top: 20px; /* Add some space below the fixed header */
+}
+
+.details {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.result {
   text-align: left;
-  background-color: #f2f2f2;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  white-space: pre-wrap;
+}
+
+.back-button {
+  background-color: #5c67f2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
 .back-button:hover {
-  background-color: #0056b3;
+  background-color: #4a54e1;
+}
+
+@media (max-width: 768px) {
+  .content-section {
+    max-width: 100%;
+    padding: 0 10px;
+  }
 }
