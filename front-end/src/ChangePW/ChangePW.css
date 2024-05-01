@@ -56,7 +56,7 @@ button:hover {
 }
 
 p {
-    color: #e63946; /* Red color for messages (errors, success) */
+
     font-size: 14px;
     margin-top: 10px; /* Space above the message text */
 }
