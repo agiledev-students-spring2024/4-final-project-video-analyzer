@@ -10,7 +10,6 @@ const SplashPage = () => {
     <div className="splash-container">
       <main className="splash-content">
         <h1>Video Transcriber</h1>
-        <p>Some dummy text Some dummy textSome dummy textSome dummy textSome dummy text</p>
         <button className="login-button" onClick={() => navigate('/login')}>Log In</button>
       </main>
     </div>

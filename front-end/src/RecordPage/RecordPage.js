@@ -108,6 +108,9 @@ const RecordPage = () => {
                         <h2>Transcription Result:</h2>
                         <pre>{transcriptionResult}</pre>
                     </div>
+                    <button className="button" onClick={() => window.history.back()}>
+                        Back
+                </button>
                 </main>
             </div>
         </div>
